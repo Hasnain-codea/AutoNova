@@ -2949,7 +2949,7 @@ function makeEnquiry(carId){
     );
 
   if(!car) return;
-
+currentEnquiryCarId = car.id;
   closeModal("carModal");
 
   document.getElementById("contactSubject").value =
