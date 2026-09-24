@@ -2836,90 +2836,6 @@ async function submitSell(){
 /* ==========================================================
    CONTACT
    ========================================================== */
-
-async function sendContact(){
-
-  const data = {
-
-    user_id:
-      currentUser?.id || null,
-
-    name:
-      document
-      .getElementById("contactName")
-      .value
-      .trim(),
-
-    email:
-      document
-      .getElementById("contactEmail")
-      .value
-      .trim(),
-
-    subject:
-      document
-      .getElementById("contactSubject")
-      .value
-      .trim(),
-
-    message:
-      document
-      .getElementById("contactMessage")
-      .value
-      .trim()
-
-  };
-
-  if(
-    !data.name ||
-    !data.email ||
-    !data.message
-  ){
-
-    showToast(
-      "Name, email aur message required hain.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  if(!supabaseClient){
-
-    showToast(
-      "Supabase key add nahi hui.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  try{
-
-    const result =
-      await supabaseClient
-      .from("contact_messages")
-      .insert(data);
-
-    if(result.error){
-
-      showToast(
-        result.error.message,
-        "error"
-      );
-
-      return;
-
-    }
-
-    showToast(
-      "Message sent successfully.",
-      "success"
-    );
-
-    clearFields([
 async function sendContact(){
 
   const name =
@@ -3015,7 +2931,7 @@ async function sendContact(){
       }
 
       showToast(
-        "Enquiry sent successfully! 🚗",
+        "Enquiry sent successfully!",
         "success"
       );
 
@@ -3082,6 +2998,9 @@ async function sendContact(){
   }
 
 }
+
+
+
 
 /* ==========================================================
    ENQUIRY
