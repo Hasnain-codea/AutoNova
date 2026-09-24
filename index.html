@@ -2920,6 +2920,152 @@ async function sendContact(){
     );
 
     clearFields([
+async function sendContact(){
+
+  const name =
+    document
+    .getElementById("contactName")
+    .value
+    .trim();
+
+  const email =
+    document
+    .getElementById("contactEmail")
+    .value
+    .trim();
+
+  const subject =
+    document
+    .getElementById("contactSubject")
+    .value
+    .trim();
+
+  const message =
+    document
+    .getElementById("contactMessage")
+    .value
+    .trim();
+
+  if(
+    !name ||
+    !email ||
+    !message
+  ){
+
+    showToast(
+      "Name, email aur message required hain.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(!supabaseClient){
+
+    showToast(
+      "Supabase connection nahi mila.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    if(currentEnquiryCarId){
+
+      const enquiryData = {
+
+        user_id:
+          currentUser?.id || null,
+
+        car_id:
+          currentEnquiryCarId,
+
+        name:
+          name,
+
+        email:
+          email,
+
+        phone:
+          null,
+
+        message:
+          message
+
+      };
+
+      const result =
+        await supabaseClient
+        .from("enquiries")
+        .insert(enquiryData);
+
+      if(result.error){
+
+        showToast(
+          result.error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+      showToast(
+        "Enquiry sent successfully! 🚗",
+        "success"
+      );
+
+      currentEnquiryCarId = null;
+
+    }else{
+
+      const contactData = {
+
+        user_id:
+          currentUser?.id || null,
+
+        name:
+          name,
+
+        email:
+          email,
+
+        subject:
+          subject,
+
+        message:
+          message
+
+      };
+
+      const result =
+        await supabaseClient
+        .from("contact_messages")
+        .insert(contactData);
+
+      if(result.error){
+
+        showToast(
+          result.error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+      showToast(
+        "Message sent successfully.",
+        "success"
+      );
+
+    }
+
+    clearFields([
       "contactName",
       "contactEmail",
       "contactSubject",
@@ -2936,7 +3082,6 @@ async function sendContact(){
   }
 
 }
-
 
 /* ==========================================================
    ENQUIRY
