@@ -2964,8 +2964,12 @@ function makeEnquiry(carId){
     "). Please contact me with more details.";
 
   go("contact");
+setTimeout(() => {
+  document.getElementById("contact").scrollIntoView({
+    behavior: "smooth"
+  });
+}, 100);
 
-}
 
 
 
