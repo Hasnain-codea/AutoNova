@@ -2472,9 +2472,7 @@ function viewCar(id){
 
         <button
           class="btn btn-primary"
-          onclick="makeEnquiry('${escapeHTML(
-            car.brand + " " + car.model
-          )}')"
+          onclick="makeEnquiry('${String(car.id)}')"
         >
           Enquire Now
         </button>
