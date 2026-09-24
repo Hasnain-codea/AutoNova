@@ -2943,17 +2943,31 @@ async function sendContact(){
    ENQUIRY
    ========================================================== */
 
-function makeEnquiry(carName){
+function makeEnquiry(carId){
+
+  const car =
+    cars.find(
+      item => String(item.id) === String(carId)
+    );
+
+  if(!car) return;
 
   closeModal("carModal");
 
   document.getElementById("contactSubject").value =
-    "Car enquiry - " + carName;
+    "Car enquiry - " + car.brand + " " + car.model;
 
   document.getElementById("contactMessage").value =
-    "I am interested in " + carName + ".";
+    "I am interested in " +
+    car.brand + " " +
+    car.model +
+    " (" +
+    (car.variant || "Standard") +
+    "). Please contact me with more details.";
 
   go("contact");
+
+}
 
 }
 
